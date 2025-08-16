@@ -34,6 +34,12 @@ jobs:
           gif_out_path: dist/github-contribution-grid-snake.gif
           svg_out_path: dist/github-contribution-grid-snake.svg
 
+      - uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/github-snake.svg
+
      # show the status of the build. Makes it easier for debugging (if there's any issues).
       - run: git status
 
