@@ -5,9 +5,8 @@
 
 ## 🚀 What I'm Up To
 
-- 💻 Learning to build a full-stack app  
-- 📚 Exploring new programming concepts  
-- 🌐 Improving my GitHub profile with cool features  
+- 💻 Learning to build full-stack apps  
+- 📚 Exploring new ai tools  
 
 <!-- Snake Game -->
 <picture>
