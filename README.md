@@ -1,18 +1,18 @@
 <!--
   GitHub profile README - Ayush Regmi (ayushreg)
-  Appears at https://github.com/ayushreg
+  Theme: cloudy blue sky
 -->
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/banner.png" width="100%" alt="Ayush Regmi"/>
+<img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/banner.png?v=sky" width="100%" alt="Ayush Regmi"/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=1B9AAA&center=true&vCenter=true&width=700&height=45&lines=Software+Engineering+Intern+%40+Argo+Data;Building+AutoTok+%7C+AI+video+ads;FastTrack+CS+%40+UT+Dallas+%7C+Graduating+2028)](https://github.com/ayushreg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=2E86C1&center=true&vCenter=true&width=700&height=45&lines=Software+Engineering+Intern+%40+Argo+Data;Building+AutoTok+%7C+AI+video+ads;FastTrack+CS+%40+UT+Dallas+%7C+Graduating+2028)](https://github.com/ayushreg)
 
 <p>
-  <a href="https://linkedin.com/in/ayushregmi"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>
-  <a href="mailto:ayushregmi15@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/></a>
-  <a href="https://tryautotok.com"><img src="https://img.shields.io/badge/AutoTok-0B4F6C?style=for-the-badge&logo=tiktok&logoColor=white" alt="AutoTok"/></a>
+  <a href="https://linkedin.com/in/ayushregmi"><img src="https://img.shields.io/badge/LinkedIn-2E86C1?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>
+  <a href="mailto:ayushregmi15@gmail.com"><img src="https://img.shields.io/badge/Email-5DADE2?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/></a>
+  <a href="https://tryautotok.com"><img src="https://img.shields.io/badge/AutoTok-87CEEB?style=for-the-badge&logo=tiktok&logoColor=1B4F72" alt="AutoTok"/></a>
 </p>
 
 </div>
