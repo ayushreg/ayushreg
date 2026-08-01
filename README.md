@@ -6,7 +6,7 @@
 <div align="center">
 <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/banner.png?v=sky2" width="100%" alt="Ayush Regmi"/>
 <br/>
-<a href="https://readme-typing-svg.demolab.com"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=2E86C1&center=true&vCenter=true&width=700&height=45&lines=Software+Engineering+Intern+%40+Argo+Data;Building+AutoTok+%7C+AI+video+ads;FastTrack+CS+%40+UT+Dallas+%7C+Graduating+2028" alt="Typing SVG"/></a>
+<a href="https://readme-typing-svg.demolab.com"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=2E86C1&center=true&vCenter=true&width=700&height=45&lines=Software+Engineering+Intern+%40+Argo+Data;Building+AutoTok+%7C+AI+video+ads" alt="Typing SVG"/></a>
 <br/>
 <a href="https://linkedin.com/in/ayushregmi"><img src="https://img.shields.io/badge/LinkedIn-2E86C1?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>
 <a href="mailto:ayushregmi15@gmail.com"><img src="https://img.shields.io/badge/Email-5DADE2?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/></a>
