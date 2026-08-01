@@ -101,9 +101,15 @@ def text_block(
         tw = od.textlength(line, font=font)
         x = (W - tw) / 2 if center else MARGIN
         if outlined:
-            outline = (8, 24, 48, 200)
-            for dx, dy in ((-2, 0), (2, 0), (0, -2), (0, 2), (-1, -1), (1, 1), (-1, 1), (1, -1)):
+            outline = (6, 28, 55, 230)
+            for dx, dy in (
+                (-3, 0), (3, 0), (0, -3), (0, 3),
+                (-2, -2), (2, -2), (-2, 2), (2, 2),
+                (-3, -1), (3, -1), (-3, 1), (3, 1),
+                (-1, -3), (1, -3), (-1, 3), (1, 3),
+            ):
                 od.text((x + dx, y + dy), line, font=font, fill=outline)
+            od.text((x + 1, y + 2), line, font=font, fill=(0, 0, 0, 110))
         else:
             # subtle drop shadow only
             od.text((x + 1, y + 2), line, font=font, fill=(0, 0, 0, 90))
@@ -175,8 +181,19 @@ def main() -> None:
     y = text_block(canvas, y, data["name"], title, center=True, tracking=8, outlined=True)
     y += 2
     y = text_block(canvas, y, data["tagline"], subtitle, center=True, fill=(255, 255, 255, 255), tracking=8, outlined=True)
-    y += 2
-    y = text_block(canvas, y, data["roles"], small, center=True, fill=(245, 250, 255, 255), tracking=8, outlined=True)
+    y += 6
+    # Roles line needs extra pop on busy clouds
+    roles_font = load_font(22, "semibold")
+    y = text_block(
+        canvas,
+        y,
+        data["roles"],
+        roles_font,
+        center=True,
+        fill=(255, 255, 255, 255),
+        tracking=8,
+        outlined=True,
+    )
     y += 26
 
     # Welcome
