@@ -14,14 +14,14 @@
   <a href="mailto:ayushregmi15@gmail.com"><img src="https://img.shields.io/badge/Email-5DADE2?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/></a>
 </p>
 
-<img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/sky-float-strip.gif?v=1" width="100%" alt="floating clouds and islands"/>
+<img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/sky-float-strip.gif?v=3" width="100%" alt=""/>
 
 </div>
 
 <table>
   <tr>
     <td width="120" align="center" valign="middle">
-      <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/island-float-sm.gif?v=1" width="100" alt=""/>
+      <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/island-float-sm.gif?v=3" width="100" alt=""/>
     </td>
     <td valign="middle">
 
@@ -31,17 +31,17 @@ I'm a **FastTrack CS** student at **UT Dallas** (graduating 2028). I intern at *
 
     </td>
     <td width="120" align="center" valign="middle">
-      <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud-float-sm.gif?v=1" width="100" alt=""/>
+      <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud-float-sm.gif?v=3" width="100" alt=""/>
     </td>
   </tr>
 </table>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud-float.gif?v=1" width="140" alt=""/>
-  &nbsp;&nbsp;&nbsp;
-  <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/island-float.gif?v=1" width="150" alt=""/>
-  &nbsp;&nbsp;&nbsp;
-  <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud-float-sm.gif?v=1" width="110" alt=""/>
+  <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud-float.gif?v=3" width="120" alt=""/>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/island-float.gif?v=3" width="130" alt=""/>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud-float-sm.gif?v=3" width="90" alt=""/>
 </p>
 
 ### Experience
@@ -49,7 +49,7 @@ I'm a **FastTrack CS** student at **UT Dallas** (graduating 2028). I intern at *
 <table>
   <tr>
     <td width="100" align="center" valign="top">
-      <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud-float-sm.gif?v=1" width="90" alt=""/>
+      <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud-float-sm.gif?v=3" width="85" alt=""/>
     </td>
     <td valign="top">
 
@@ -64,13 +64,13 @@ Help teach thousands of students building AI products, and ship website fixes wh
 
     </td>
     <td width="100" align="center" valign="top">
-      <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/island-float-sm.gif?v=1" width="95" alt=""/>
+      <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/island-float-sm.gif?v=3" width="90" alt=""/>
     </td>
   </tr>
 </table>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/sky-float-strip.gif?v=1" width="85%" alt=""/>
+  <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/sky-float-strip.gif?v=3" width="85%" alt=""/>
 </p>
 
 ### Stuff I've built
@@ -78,8 +78,6 @@ Help teach thousands of students building AI products, and ship website fixes wh
 <table>
   <tr>
     <td width="50%" align="center" valign="top">
-      <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud-float-sm.gif?v=1" width="80" alt=""/>
-      <br/>
       <a href="https://tryautotok.com">
         <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/autotok.png" alt="AutoTok" width="88"/>
       </a>
@@ -91,8 +89,6 @@ Help teach thousands of students building AI products, and ship website fixes wh
       Turns product clips into ready-to-post TikTok Shop ads. 200+ creators on the waitlist.
     </td>
     <td width="50%" align="center" valign="top">
-      <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/island-float-sm.gif?v=1" width="85" alt=""/>
-      <br/>
       <a href="https://github.com/ayushreg/anime-recommendation-platform">
         <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/anime-recs.png" alt="Anime Recommendation Platform" width="88"/>
       </a>
@@ -107,9 +103,9 @@ Help teach thousands of students building AI products, and ship website fixes wh
 </table>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/island-float.gif?v=1" width="130" alt=""/>
-  &nbsp;&nbsp;&nbsp;
-  <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud-float.gif?v=1" width="140" alt=""/>
+  <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/island-float.gif?v=3" width="110" alt=""/>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud-float.gif?v=3" width="120" alt=""/>
 </p>
 
 ### Tech stack
@@ -122,7 +118,7 @@ Help teach thousands of students building AI products, and ship website fixes wh
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/sky-float-strip.gif?v=1" width="90%" alt=""/>
+  <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/sky-float-strip.gif?v=3" width="90%" alt=""/>
 </p>
 
 <picture>
@@ -140,7 +136,7 @@ Help teach thousands of students building AI products, and ship website fixes wh
 Always down to talk software, AI products, or cool side projects.
 
 <p>
-  <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud-float-sm.gif?v=1" width="70" alt=""/>
+  <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud-float-sm.gif?v=3" width="70" alt=""/>
   &nbsp;&nbsp;
   <a href="https://linkedin.com/in/ayushregmi" title="LinkedIn">
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" height="36" alt="LinkedIn"/>
@@ -154,7 +150,7 @@ Always down to talk software, AI products, or cool side projects.
     <img src="https://cdn.simpleicons.org/gmail/EA4335" height="36" alt="Email"/>
   </a>
   &nbsp;&nbsp;
-  <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/island-float-sm.gif?v=1" width="75" alt=""/>
+  <img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/island-float-sm.gif?v=3" width="75" alt=""/>
 </p>
 
 </div>
