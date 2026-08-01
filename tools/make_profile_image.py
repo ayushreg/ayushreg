@@ -7,9 +7,8 @@ Usage:
 from __future__ import annotations
 
 from pathlib import Path
-import textwrap
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -22,27 +21,45 @@ MARGIN = 72
 MAX_TEXT = W - MARGIN * 2
 
 
-def load_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
-    names = [
-        r"C:\Windows\Fonts\segoeuib.ttf" if bold else r"C:\Windows\Fonts\segoeui.ttf",
-        r"C:\Windows\Fonts\arialbd.ttf" if bold else r"C:\Windows\Fonts\arial.ttf",
-        r"C:\Windows\Fonts\calibrib.ttf" if bold else r"C:\Windows\Fonts\calibri.ttf",
+def load_font(size: int, weight: str = "regular") -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
+    mapping = {
+        "bold": ASSETS / "Poppins-Bold.ttf",
+        "semibold": ASSETS / "Poppins-SemiBold.ttf",
+        "regular": ASSETS / "Poppins-Regular.ttf",
+    }
+    path = mapping.get(weight, mapping["regular"])
+    if path.exists():
+        return ImageFont.truetype(str(path), size)
+    fallbacks = [
+        r"C:\Windows\Fonts\segoeuib.ttf" if weight != "regular" else r"C:\Windows\Fonts\segoeui.ttf",
+        r"C:\Windows\Fonts\arialbd.ttf" if weight != "regular" else r"C:\Windows\Fonts\arial.ttf",
     ]
-    for name in names:
+    for fb in fallbacks:
         try:
-            return ImageFont.truetype(name, size)
+            return ImageFont.truetype(fb, size)
         except OSError:
             continue
     return ImageFont.load_default()
 
 
-def fit_strip(bg: Image.Image, h: int) -> Image.Image:
-    img = bg.convert("RGBA")
+def load_sky(h: int) -> Image.Image:
+    candidates = [
+        ASSETS / "sky-dense-clouds.png",
+        Path(r"C:\Users\regmi\.cursor\projects\c-Users-regmi-OneDrive-Desktop-About-me\assets\sky-dense-clouds.png"),
+        ASSETS / "sky-panel-bg.png",
+    ]
+    src = next((p for p in candidates if p.exists()), None)
+    if src is None:
+        raise SystemExit("Missing sky background image")
+    img = Image.open(src).convert("RGBA")
+    # Brighten slightly so white text panels contrast cleanly
+    img = ImageEnhance.Brightness(img).enhance(1.05)
+    img = ImageEnhance.Color(img).enhance(1.08)
     scale = max(W / img.width, h / img.height)
     nw, nh = int(img.width * scale), int(img.height * scale)
     img = img.resize((nw, nh), Image.Resampling.LANCZOS)
     left = (nw - W) // 2
-    top = max(0, (nh - h) // 4)
+    top = max(0, (nh - h) // 5)
     return img.crop((left, top, left + W, top + h))
 
 
@@ -70,10 +87,12 @@ def text_block(
     font: ImageFont.ImageFont,
     *,
     fill=(255, 255, 255, 255),
-    shadow=(10, 25, 45, 180),
     center: bool = False,
     max_width: int = MAX_TEXT,
+    tracking: int = 10,
+    outlined: bool = False,
 ) -> int:
+    """Clean Poppins text. Optional outline only for header on busy sky."""
     draw = ImageDraw.Draw(canvas)
     lines = wrap_lines(draw, text, font, max_width)
     overlay = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
@@ -81,11 +100,16 @@ def text_block(
     for line in lines:
         tw = od.textlength(line, font=font)
         x = (W - tw) / 2 if center else MARGIN
-        for dx, dy in ((2, 2), (1, 1), (0, 2)):
-            od.text((x + dx, y + dy), line, font=font, fill=shadow)
+        if outlined:
+            outline = (8, 24, 48, 200)
+            for dx, dy in ((-2, 0), (2, 0), (0, -2), (0, 2), (-1, -1), (1, 1), (-1, 1), (1, -1)):
+                od.text((x + dx, y + dy), line, font=font, fill=outline)
+        else:
+            # subtle drop shadow only
+            od.text((x + 1, y + 2), line, font=font, fill=(0, 0, 0, 90))
         od.text((x, y), line, font=font, fill=fill)
         bbox = od.textbbox((0, 0), line, font=font)
-        y += (bbox[3] - bbox[1]) + 8
+        y += (bbox[3] - bbox[1]) + tracking
     canvas.alpha_composite(overlay)
     return y
 
@@ -99,164 +123,124 @@ def paste_deco(canvas: Image.Image, name: str, xy: tuple[int, int], size: int) -
     canvas.alpha_composite(deco, xy)
 
 
-def section_scrim(canvas: Image.Image, y0: int, y1: int, alpha: int = 55) -> None:
+def solid_panel(canvas: Image.Image, top: int, height: int) -> None:
+    """Solid sky-navy panel so text pops (not liquid glass)."""
     overlay = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
     d = ImageDraw.Draw(overlay)
-    d.rounded_rectangle((40, y0, W - 40, y1), radius=22, fill=(12, 35, 65, alpha))
+    d.rounded_rectangle((40, top, W - 40, top + height), radius=26, fill=(14, 52, 92, 242))
+    d.rounded_rectangle((40, top, W - 40, top + height), radius=26, outline=(190, 220, 245, 90), width=2)
     canvas.alpha_composite(overlay)
+
+
+def measure_block(texts: list[tuple[str, ImageFont.ImageFont, dict]], gap_after: int = 0) -> int:
+    temp = Image.new("RGBA", (W, 2000), (0, 0, 0, 0))
+    y = 0
+    for text, fnt, kwargs in texts:
+        y = text_block(temp, y, text, fnt, **kwargs)
+        y += gap_after
+    return y
 
 
 def main() -> None:
     data = yaml.safe_load(CONTENT.read_text(encoding="utf-8"))
 
-    bg_path = ASSETS / "sky-panel-bg.png"
-    if not bg_path.exists():
-        raise SystemExit(f"Missing {bg_path}")
-    bg = Image.open(bg_path).convert("RGBA")
+    # Copy dense sky into assets if needed
+    gen_sky = Path(r"C:\Users\regmi\.cursor\projects\c-Users-regmi-OneDrive-Desktop-About-me\assets\sky-dense-clouds.png")
+    if gen_sky.exists():
+        (ASSETS / "sky-dense-clouds.png").write_bytes(gen_sky.read_bytes())
 
-    # Build on a tall sky canvas by tiling/fitting strips
-    # Estimate height first with a dry run using a temp image
-    estimate_h = 3200
-    canvas = fit_strip(bg, estimate_h)
+    title = load_font(56, "bold")
+    subtitle = load_font(24, "semibold")
+    h1 = load_font(34, "bold")
+    h2 = load_font(23, "semibold")
+    body = load_font(20, "regular")
+    small = load_font(18, "regular")
 
-    # Soft overall readability veil (light, keeps sky visible)
-    veil = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
-    vd = ImageDraw.Draw(veil)
-    vd.rectangle((0, 0, W, estimate_h), fill=(8, 30, 55, 28))
-    canvas.alpha_composite(veil)
+    estimate_h = 3000
+    canvas = load_sky(estimate_h)
 
-    title = load_font(58, bold=True)
-    subtitle = load_font(26, bold=False)
-    h1 = load_font(38, bold=True)
-    h2 = load_font(26, bold=True)
-    body = load_font(22, bold=False)
-    small = load_font(20, bold=False)
+    # Scatter more clouds across the page
+    cloud_spots = [
+        (30, 20, 130), (980, 40, 120), (180, 280, 90), (900, 420, 100),
+        (40, 700, 110), (1020, 780, 95), (120, 1100, 100), (950, 1200, 115),
+        (60, 1500, 105), (1000, 1600, 90), (500, 200, 70), (700, 950, 80),
+    ]
+    for x, cy, size in cloud_spots:
+        paste_deco(canvas, "cloud.png", (x, cy), size)
+    island_spots = [(50, 500, 130), (1000, 1050, 120), (80, 1450, 110)]
+    for x, cy, size in island_spots:
+        paste_deco(canvas, "island.png" if size > 115 else "island-small.png", (x, cy), size)
 
-    y = 70
-    y = text_block(canvas, y, data["name"], title, center=True)
-    y += 6
-    y = text_block(canvas, y, data["tagline"], subtitle, center=True, fill=(235, 246, 255, 255))
+    y = 56
+    y = text_block(canvas, y, data["name"], title, center=True, tracking=8, outlined=True)
     y += 2
-    y = text_block(canvas, y, data["roles"], small, center=True, fill=(220, 236, 250, 255))
-    y += 18
-
-    paste_deco(canvas, "cloud.png", (60, 40), 110)
-    paste_deco(canvas, "island-small.png", (1020, 50), 110)
+    y = text_block(canvas, y, data["tagline"], subtitle, center=True, fill=(255, 255, 255, 255), tracking=8, outlined=True)
+    y += 2
+    y = text_block(canvas, y, data["roles"], small, center=True, fill=(245, 250, 255, 255), tracking=8, outlined=True)
+    y += 26
 
     # Welcome
-    sec_top = y
-    y += 24
-    y = text_block(canvas, y, data["welcome_title"], h1)
-    y += 8
-    y = text_block(canvas, y, " ".join(data["welcome_body"].split()), body, fill=(240, 248, 255, 255))
-    y += 20
-    section_scrim(canvas, sec_top, y + 10, alpha=48)
-    # redraw text above scrim by compositing order issue - scrim was after text so it covers text!
-    # Fix: draw scrim BEFORE text. Rebuild this section properly below.
-
-    # Because scrim-after-text darkens text badly, regenerate cleanly with ordered drawing.
-    canvas = fit_strip(bg, estimate_h)
-    canvas.alpha_composite(Image.new("RGBA", canvas.size, (8, 30, 55, 22)))
-
-    y = 60
-    paste_deco(canvas, "cloud.png", (50, 30), 120)
-    paste_deco(canvas, "island.png", (980, 20), 140)
-
-    y = text_block(canvas, y, data["name"], title, center=True)
-    y += 4
-    y = text_block(canvas, y, data["tagline"], subtitle, center=True, fill=(245, 250, 255, 255))
-    y += 2
-    y = text_block(canvas, y, data["roles"], small, center=True, fill=(230, 242, 255, 255))
-    y += 28
-
-    def begin_section(pad: int = 18) -> int:
-        return y + pad
-
-    def end_section(top: int, bottom: int) -> None:
-        # draw scrim behind by inserting under - easier: draw rounded panel first next time
-        pass
-
-    # Helper: draw a panel then content inside
-    def panel(top: int, height: int, alpha: int = 58) -> None:
-        overlay = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
-        d = ImageDraw.Draw(overlay)
-        d.rounded_rectangle((36, top, W - 36, top + height), radius=24, fill=(10, 32, 58, alpha))
-        # thin bright edge for definition on sky
-        d.rounded_rectangle((36, top, W - 36, top + height), radius=24, outline=(255, 255, 255, 55), width=2)
-        canvas.alpha_composite(overlay)
-
-    # Welcome panel
+    welcome_body = " ".join(data["welcome_body"].split())
+    content_h = measure_block([
+        (data["welcome_title"], h1, {}),
+        (welcome_body, body, {"fill": (245, 250, 255, 255)}),
+    ], gap_after=10) + 52
     panel_top = y
-    inner_y = y + 28
-    # measure content height roughly
-    temp = Image.new("RGBA", (W, 400), (0, 0, 0, 0))
-    ty = 0
-    ty = text_block(temp, ty, data["welcome_title"], h1)
-    ty += 8
-    ty = text_block(temp, ty, " ".join(data["welcome_body"].split()), body)
-    panel_h = ty + 56
-    panel(panel_top, panel_h, alpha=62)
-    y = panel_top + 28
-    y = text_block(canvas, y, data["welcome_title"], h1)
+    solid_panel(canvas, panel_top, content_h)
+    y = panel_top + 26
+    y = text_block(canvas, y, data["welcome_title"], h1, tracking=8)
     y += 8
-    y = text_block(canvas, y, " ".join(data["welcome_body"].split()), body, fill=(245, 250, 255, 255))
-    y = panel_top + panel_h + 24
+    y = text_block(canvas, y, welcome_body, body, fill=(245, 250, 255, 255), tracking=8)
+    y = panel_top + content_h + 22
 
-    paste_deco(canvas, "cloud.png", (1000, y - 10), 90)
-
-    # Experience panel
-    panel_top = y
-    temp = Image.new("RGBA", (W, 1200), (0, 0, 0, 0))
-    ty = 0
-    ty = text_block(temp, ty, data["experience_title"], h1)
-    ty += 14
+    # Experience
+    parts: list[tuple[str, ImageFont.ImageFont, dict]] = [(data["experience_title"], h1, {})]
     for job in data["experience"]:
-        ty = text_block(temp, ty, job["title"], h2)
+        parts.append((job["title"], h2, {}))
+        parts.append((" ".join(job["body"].split()), body, {"fill": (245, 250, 255, 255)}))
+    # rough measure with gaps
+    temp = Image.new("RGBA", (W, 2000), (0, 0, 0, 0))
+    ty = 0
+    ty = text_block(temp, ty, data["experience_title"], h1, tracking=8)
+    ty += 12
+    for job in data["experience"]:
+        ty = text_block(temp, ty, job["title"], h2, tracking=6)
         ty += 4
-        ty = text_block(temp, ty, " ".join(job["body"].split()), body, fill=(245, 250, 255, 255))
-        ty += 16
-    panel_h = ty + 56
-    panel(panel_top, panel_h, alpha=64)
-    y = panel_top + 28
-    y = text_block(canvas, y, data["experience_title"], h1)
-    y += 14
-    for job in data["experience"]:
-        y = text_block(canvas, y, job["title"], h2)
-        y += 4
-        y = text_block(canvas, y, " ".join(job["body"].split()), body, fill=(245, 250, 255, 255))
-        y += 16
-    y = panel_top + panel_h + 24
-
-    paste_deco(canvas, "island-small.png", (70, y - 20), 100)
-
-    # Projects panel
+        ty = text_block(temp, ty, " ".join(job["body"].split()), body, fill=(245, 250, 255, 255), tracking=7)
+        ty += 14
+    content_h = ty + 48
     panel_top = y
-    # two-column layout
-    col_w = (MAX_TEXT - 40) // 2
-    temp = Image.new("RGBA", (W, 900), (0, 0, 0, 0))
-    ty = 0
-    ty = text_block(temp, ty, data["projects_title"], h1)
-    ty += 20
-    # estimate project card height
-    proj_body_h = 0
-    for p in data["projects"]:
-        ph = 0
-        ph += 100  # logo
-        ph += 36  # name
-        ph += 28  # stack
-        # body lines
-        tdraw = ImageDraw.Draw(temp)
-        lines = wrap_lines(tdraw, " ".join(p["body"].split()), body, col_w)
-        ph += len(lines) * 30
-        proj_body_h = max(proj_body_h, ph)
-    panel_h = ty + proj_body_h + 70
-    panel(panel_top, panel_h, alpha=64)
-    y = panel_top + 28
-    y = text_block(canvas, y, data["projects_title"], h1)
-    y += 18
+    solid_panel(canvas, panel_top, content_h)
+    y = panel_top + 26
+    y = text_block(canvas, y, data["experience_title"], h1, tracking=8)
+    y += 12
+    for job in data["experience"]:
+        y = text_block(canvas, y, job["title"], h2, tracking=6)
+        y += 4
+        y = text_block(canvas, y, " ".join(job["body"].split()), body, fill=(245, 250, 255, 255), tracking=7)
+        y += 14
+    y = panel_top + content_h + 22
 
+    # Projects
+    col_w = (MAX_TEXT - 36) // 2
+    temp = Image.new("RGBA", (W, 1200), (0, 0, 0, 0))
+    ty = text_block(temp, 0, data["projects_title"], h1, tracking=8) + 16
+    max_col = 0
+    for p in data["projects"]:
+        ph = 108
+        tdraw = ImageDraw.Draw(temp)
+        ph += 34
+        ph += 26
+        ph += len(wrap_lines(tdraw, " ".join(p["body"].split()), body, col_w)) * 28
+        max_col = max(max_col, ph)
+    content_h = ty + max_col + 40
+    panel_top = y
+    solid_panel(canvas, panel_top, content_h)
+    y = panel_top + 26
+    y = text_block(canvas, y, data["projects_title"], h1, tracking=8)
+    y += 16
     left_x = MARGIN
-    right_x = MARGIN + col_w + 40
+    right_x = MARGIN + col_w + 36
     row_y = y
 
     for idx, p in enumerate(data["projects"]):
@@ -265,75 +249,66 @@ def main() -> None:
         logo_path = ASSETS / p["logo"]
         if logo_path.exists():
             logo = Image.open(logo_path).convert("RGBA")
-            logo.thumbnail((96, 96), Image.Resampling.LANCZOS)
+            logo.thumbnail((92, 92), Image.Resampling.LANCZOS)
             canvas.alpha_composite(logo, (x + (col_w - logo.width) // 2, cy))
-            cy += 110
+            cy += 104
 
-        # centered-ish column text by manual x
         overlay = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
         od = ImageDraw.Draw(overlay)
 
-        def draw_at(px: int, py: int, text: str, fnt, fill=(255, 255, 255, 255)) -> int:
-            for dx, dy in ((2, 2), (1, 1)):
-                od.text((px + dx, py + dy), text, font=fnt, fill=(10, 25, 45, 170))
+        def draw_centered(py: int, text: str, fnt, fill=(255, 255, 255, 255)) -> int:
+            tw = od.textlength(text, font=fnt)
+            px = x + (col_w - tw) / 2
+            od.text((px + 1, py + 2), text, font=fnt, fill=(0, 0, 0, 90))
             od.text((px, py), text, font=fnt, fill=fill)
             bb = od.textbbox((0, 0), text, font=fnt)
             return py + (bb[3] - bb[1]) + 8
 
-        # name centered in column
-        tw = od.textlength(p["name"], font=h2)
-        cy = draw_at(x + int((col_w - tw) / 2), cy, p["name"], h2)
-        tw = od.textlength(p["stack"], font=small)
-        cy = draw_at(x + int((col_w - tw) / 2), cy, p["stack"], small, fill=(230, 242, 255, 255))
+        def draw_left(py: int, text: str, fnt, fill=(245, 250, 255, 255)) -> int:
+            od.text((x + 1, py + 2), text, font=fnt, fill=(0, 0, 0, 90))
+            od.text((x, py), text, font=fnt, fill=fill)
+            bb = od.textbbox((0, 0), text, font=fnt)
+            return py + (bb[3] - bb[1]) + 7
+
+        cy = draw_centered(cy, p["name"], h2)
+        cy = draw_centered(cy, p["stack"], small, fill=(230, 242, 255, 255))
         for line in wrap_lines(od, " ".join(p["body"].split()), body, col_w):
-            cy = draw_at(x, cy, line, body, fill=(245, 250, 255, 255))
+            cy = draw_left(cy, line, body)
         canvas.alpha_composite(overlay)
 
-    y = panel_top + panel_h + 24
+    y = panel_top + content_h + 22
 
-    # Tech panel
+    # Tech with icons
+    icons_path = ASSETS / data.get("tech_icons", "tech-icons.png")
+    icons = Image.open(icons_path).convert("RGBA") if icons_path.exists() else None
+    icon_h = 0
+    if icons is not None:
+        # fit to content width, then scale up a bit for presence
+        max_w = MAX_TEXT
+        scale = min(1.85, max_w / icons.width)
+        icons = icons.resize((int(icons.width * scale), int(icons.height * scale)), Image.Resampling.LANCZOS)
+        icon_h = icons.height
+
+    temp = Image.new("RGBA", (W, 600), (0, 0, 0, 0))
+    ty = text_block(temp, 0, data["tech_title"], h1, tracking=8) + 16 + icon_h
+    content_h = ty + 48
     panel_top = y
-    temp = Image.new("RGBA", (W, 500), (0, 0, 0, 0))
-    ty = 0
-    ty = text_block(temp, ty, data["tech_title"], h1)
-    ty += 12
-    for line in (data["tech_line_1"], data["tech_line_2"], data["tech_line_3"]):
-        ty = text_block(temp, ty, line, body, center=True, fill=(245, 250, 255, 255))
-        ty += 6
-    panel_h = ty + 56
-    panel(panel_top, panel_h, alpha=62)
-    y = panel_top + 28
-    y = text_block(canvas, y, data["tech_title"], h1)
-    y += 12
-    for line in (data["tech_line_1"], data["tech_line_2"], data["tech_line_3"]):
-        y = text_block(canvas, y, line, body, center=True, fill=(245, 250, 255, 255))
-        y += 6
-    y = panel_top + panel_h + 24
+    solid_panel(canvas, panel_top, content_h)
+    y = panel_top + 26
+    y = text_block(canvas, y, data["tech_title"], h1, tracking=8)
+    y += 14
+    if icons is not None:
+        ix = (W - icons.width) // 2
+        canvas.alpha_composite(icons, (ix, y))
+        y += icons.height
+    y = panel_top + content_h + 30
 
-    paste_deco(canvas, "cloud.png", (80, y - 10), 95)
-    paste_deco(canvas, "island.png", (980, y - 20), 120)
+    # Extra clouds near bottom
+    paste_deco(canvas, "cloud.png", (70, y - 40), 110)
+    paste_deco(canvas, "island-small.png", (980, y - 50), 100)
+    paste_deco(canvas, "cloud.png", (500, y - 20), 80)
 
-    # Connect panel
-    panel_top = y
-    temp = Image.new("RGBA", (W, 400), (0, 0, 0, 0))
-    ty = 0
-    ty = text_block(temp, ty, data["connect_title"], h1, center=True)
-    ty += 8
-    ty = text_block(temp, ty, data["connect_body"], body, center=True, fill=(245, 250, 255, 255))
-    ty += 8
-    ty = text_block(temp, ty, data["connect_links"], subtitle, center=True, fill=(230, 242, 255, 255))
-    panel_h = ty + 56
-    panel(panel_top, panel_h, alpha=62)
-    y = panel_top + 28
-    y = text_block(canvas, y, data["connect_title"], h1, center=True)
-    y += 8
-    y = text_block(canvas, y, data["connect_body"], body, center=True, fill=(245, 250, 255, 255))
-    y += 8
-    y = text_block(canvas, y, data["connect_links"], subtitle, center=True, fill=(230, 242, 255, 255))
-    y = panel_top + panel_h + 40
-
-    # Crop to used height
-    final_h = min(estimate_h, y + 20)
+    final_h = min(estimate_h, y + 40)
     final = canvas.crop((0, 0, W, final_h))
     final.convert("RGB").save(OUT, quality=95, optimize=True)
     print(f"wrote {OUT} ({OUT.stat().st_size} bytes, {final.size[0]}x{final.size[1]})")

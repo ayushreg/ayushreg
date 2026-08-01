@@ -43,10 +43,4 @@ projects:
     url: https://github.com/ayushreg/anime-recommendation-platform
 
 tech_title: Tech stack
-tech_line_1: Python · Java · JavaScript · TypeScript · C++ · HTML/CSS · React · Node.js · FastAPI
-tech_line_2: Electron · PostgreSQL · Redis · Docker · Supabase · Vercel · Git · VS Code
-tech_line_3: RAG · LLMs · LangChain · Scikit-learn · Pandas · NumPy · SQL · CI/CD
-
-connect_title: Let's connect
-connect_body: Always down to talk software, AI products, or cool side projects.
-connect_links: LinkedIn · Instagram · Email
+tech_icons: tech-icons.png
