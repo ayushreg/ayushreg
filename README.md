@@ -1,13 +1,13 @@
 <!--
-  GitHub profile README — Ayush Regmi (ayushreg)
+  GitHub profile README - Ayush Regmi (ayushreg)
   Appears at https://github.com/ayushreg
 -->
 
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0B4F6C,50:1B9AAA,100:0B4F6C&height=180&section=header&text=Ayush%20Regmi&fontSize=52&fontColor=ffffff&fontAlignY=35&desc=CS%20%40%20UT%20Dallas%20%7C%20Software%20Engineer%20%26%20Builder&descAlignY=55&descSize=16" width="100%" alt="Ayush Regmi banner"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0B4F6C,50:1B9AAA,100:0B4F6C&height=180&section=header&text=Ayush%20Regmi&fontSize=52&fontColor=ffffff&fontAlignY=38&desc=CS%20at%20UT%20Dallas%20%7C%20Software%20Engineer%20and%20Builder&descAlignY=58&descSize=16" width="100%" alt="Ayush Regmi banner"/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3200&pause=900&color=1B9AAA&center=true&vCenter=true&multiline=true&width=720&height=80&lines=Software+Engineering+Intern+%40+Argo+Data;Building+AutoTok+%7C+AI+video+ads+for+creators;Full-stack+%2B+AI%2FML+%7C+4.0+GPA+at+UTD)](https://github.com/ayushreg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3200&pause=900&color=1B9AAA&center=true&vCenter=true&multiline=true&width=720&height=80&lines=Software+Engineering+Intern+%40+Argo+Data;Building+AutoTok+%7C+AI+video+ads+for+creators;Full-stack+%2B+AI%2FML+builder+at+UTD)](https://github.com/ayushreg)
 
 <p>
   <a href="https://linkedin.com/in/ayushregmi"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>
@@ -21,40 +21,48 @@
 
 Hey, I'm **Ayush**. Welcome to my corner of GitHub.
 
-I'm a CS student at **UT Dallas** (Dean's List, 4.0 GPA) who likes building things people actually use. Right now I'm interning at **Argo Data**, teaching at **AI Squads**, and shipping **[AutoTok](https://tryautotok.com)** on the side.
+I'm a CS student at **UT Dallas** who likes building things people actually use. Right now I'm interning at **Argo Data**, teaching at **AI Squads**, and shipping **[AutoTok](https://tryautotok.com)** on the side.
 
 ---
 
-### Experience
+### What I've been up to
 
-**Argo Data** · Software Engineering Intern · Jun 2026 – Present  
-Building a React app where engineers create, edit, compare, and run tests in one place, and cutting repo storage ~70% by moving tests from Excel to diffable XML.
+At **Argo Data**, I built a React app so engineers can create, edit, compare, and run tests without bouncing between Excel and the command line. I also switched those tests over to text-based XML so Git can actually review them, which cut repo storage by about 70%.
 
-**OneKit** · Software Engineering Intern · Mar 2026 – Jun 2026  
-Owned the email marketing tool in an Electron desktop suite used by 100+ small-business owners: campaigns, A/B testing, engagement reports.
+At **OneKit**, I owned the email marketing tool inside a desktop app for small-business owners. People use it to send campaigns, track opens and clicks, run A/B tests, and automate follow-ups.
 
-**AI Squads** · TA Lead & Software Engineer · Nov 2025 – Present  
-Led teaching for 4,000+ students building AI products, and shipped website fixes that unblocked project submissions.
+At **AI Squads**, I help run teaching for thousands of students building AI products, from lectures and office hours to shipping website fixes when something blocks them from submitting work.
 
 ---
 
 ### Stuff I've built
 
-<p align="center">
-  <a href="https://tryautotok.com">
-    <img src="assets/autotok.png" alt="AutoTok" height="72"/>
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://github.com/ayushreg/anime-recommendation-platform">
-    <img src="assets/anime-recs.png" alt="Anime Recommendation Platform" height="72"/>
-  </a>
-</p>
-
-**[AutoTok](https://tryautotok.com)** · React, TypeScript, Supabase  
-Turns product clips into ready-to-post TikTok Shop ads. 200+ creators on the waitlist.
-
-**[Anime Recommendation Platform](https://github.com/ayushreg/anime-recommendation-platform)** · React, FastAPI, PostgreSQL, Redis, Docker  
-Hybrid recommender over 12,000+ titles with search, ratings, watchlists, and personalized picks.
+<table>
+  <tr>
+    <td width="110" align="center" valign="middle">
+      <a href="https://tryautotok.com">
+        <img src="assets/autotok.png" alt="AutoTok logo" width="88"/>
+      </a>
+    </td>
+    <td valign="middle">
+      <a href="https://tryautotok.com"><b>AutoTok</b></a><br/>
+      React · TypeScript · Supabase<br/>
+      Turns product clips into ready-to-post TikTok Shop ads. 200+ creators on the waitlist.
+    </td>
+  </tr>
+  <tr>
+    <td width="110" align="center" valign="middle">
+      <a href="https://github.com/ayushreg/anime-recommendation-platform">
+        <img src="assets/anime-recs.png" alt="Anime Recs logo" width="88"/>
+      </a>
+    </td>
+    <td valign="middle">
+      <a href="https://github.com/ayushreg/anime-recommendation-platform"><b>Anime Recommendation Platform</b></a><br/>
+      React · FastAPI · PostgreSQL · Redis · Docker<br/>
+      Hybrid recommender over 12,000+ titles with search, ratings, watchlists, and personalized picks.
+    </td>
+  </tr>
+</table>
 
 ---
 
@@ -87,9 +95,17 @@ Hybrid recommender over 12,000+ titles with search, ratings, watchlists, and per
 Always down to talk software, AI products, or cool side projects.
 
 <p>
-  <a href="https://linkedin.com/in/ayushregmi"><img src="https://img.shields.io/badge/LinkedIn-ayushregmi-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>
-  <a href="https://instagram.com/ayush_regmii"><img src="https://img.shields.io/badge/Instagram-ayush__regmii-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram"/></a>
-  <a href="mailto:ayushregmi15@gmail.com"><img src="https://img.shields.io/badge/ayushregmi15%40gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/></a>
+  <a href="https://linkedin.com/in/ayushregmi" title="LinkedIn">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" height="36" alt="LinkedIn"/>
+  </a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="https://instagram.com/ayush_regmii" title="Instagram">
+    <img src="https://cdn.simpleicons.org/instagram/E4405F" height="36" alt="Instagram"/>
+  </a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="mailto:ayushregmi15@gmail.com" title="Email">
+    <img src="https://cdn.simpleicons.org/gmail/EA4335" height="36" alt="Email"/>
+  </a>
 </p>
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0B4F6C,50:1B9AAA,100:0B4F6C&height=120&section=footer" width="100%" alt="footer wave"/>
