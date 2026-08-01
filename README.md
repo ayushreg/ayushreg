@@ -10,55 +10,21 @@
 <br/>
 <a href="https://linkedin.com/in/ayushregmi"><img src="https://img.shields.io/badge/LinkedIn-2E86C1?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>
 <a href="mailto:ayushregmi15@gmail.com"><img src="https://img.shields.io/badge/Email-5DADE2?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/></a>
-<br/><br/>
-<img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud.png?v=clean" width="90" alt=""/>
-&nbsp;&nbsp;
-<img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/island.png?v=clean" width="100" alt=""/>
-&nbsp;&nbsp;
-<img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud.png?v=clean" width="70" alt=""/>
 </div>
 
----
+<br/>
 
-<p align="center">
-<img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/island-small.png?v=clean" width="70" align="left" alt=""/>
-<img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud.png?v=clean" width="70" align="right" alt=""/>
-</p>
+<div align="center">
+<img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/about-card.png?v=1" width="100%" alt="About Ayush"/>
+</div>
 
-Hey, I'm **Ayush**. Welcome in.
+<br/>
 
-I'm a **FastTrack CS** student at **UT Dallas** (graduating 2028). I intern at **Argo Data**, teach at **AI Squads**, and build **[AutoTok](https://tryautotok.com)** on the side.
+<div align="center">
+<img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/experience-card.png?v=1" width="100%" alt="Experience"/>
+</div>
 
-<br clear="both"/>
-
----
-
-### Experience
-
-<p>
-<img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud.png?v=clean" width="60" align="left" alt=""/>
-</p>
-
-**Argo Data** · Software Engineering Intern  
-Building a React app so engineers can create, edit, compare, and run tests in one place, and moving tests from Excel to XML so Git can review them cleanly.
-
-**OneKit** · Software Engineering Intern  
-Owned the email marketing tool in a desktop app for small-business owners: campaigns, A/B testing, and engagement tracking.
-
-**AI Squads** · TA Lead & Software Engineer  
-Help teach thousands of students building AI products, and ship website fixes when something blocks them from submitting work.
-
-<br clear="left"/>
-
-<p align="center">
-<img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/island.png?v=clean" width="90" alt=""/>
-&nbsp;&nbsp;&nbsp;
-<img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud.png?v=clean" width="80" alt=""/>
-&nbsp;&nbsp;&nbsp;
-<img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/island-small.png?v=clean" width="70" alt=""/>
-</p>
-
----
+<br/>
 
 ### Stuff I've built
 
@@ -90,12 +56,6 @@ Hybrid recommender over 12,000+ titles with search, ratings, watchlists, and per
 <img src="https://skillicons.dev/icons?i=electron,postgres,redis,docker,supabase,vercel,git,vscode&perline=8" alt="Tools and platforms"/>
 </p>
 
-<p align="center">
-<img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/cloud.png?v=clean" width="75" alt=""/>
-&nbsp;&nbsp;
-<img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/island.png?v=clean" width="85" alt=""/>
-</p>
-
 ---
 
 <div align="center">
@@ -121,7 +81,5 @@ Always down to talk software, AI products, or cool side projects.
 &nbsp;&nbsp;&nbsp;
 <a href="mailto:ayushregmi15@gmail.com" title="Email"><img src="https://cdn.simpleicons.org/gmail/EA4335" height="36" alt="Email"/></a>
 </p>
-
-<img src="https://raw.githubusercontent.com/ayushreg/ayushreg/main/assets/island-small.png?v=clean" width="70" alt=""/>
 
 </div>
