@@ -157,10 +157,10 @@ def liquid_glass_panel(canvas: Image.Image, top: int, height: int, radius: int =
     region = ImageEnhance.Contrast(region).enhance(0.92)
 
     frost = Image.new("RGBA", region.size, (0, 0, 0, 0))
-    # stronger frost so dark text stays Apple-crisp on bright clouds
-    tint = Image.new("RGBA", region.size, (242, 248, 255, 188))
+    # Enough frost for readable dark text, clear enough for clouds to show through
+    tint = Image.new("RGBA", region.size, (242, 248, 255, 135))
     frost = Image.alpha_composite(region.convert("RGBA"), tint)
-    frost = Image.alpha_composite(frost, Image.new("RGBA", region.size, (190, 215, 240, 40)))
+    frost = Image.alpha_composite(frost, Image.new("RGBA", region.size, (190, 215, 240, 28)))
 
     mask = rounded_mask(frost.size, radius)
     panel = Image.new("RGBA", frost.size, (0, 0, 0, 0))
@@ -190,6 +190,20 @@ def main() -> None:
     if gen_sky.exists():
         (ASSETS / "sky-dense-clouds.png").write_bytes(gen_sky.read_bytes())
 
+    estimate_h = 3200
+    canvas = load_sky(estimate_h)
+
+    # Depth clouds behind glass (show through frost)
+    for x, cy, size in [
+        (30, 20, 130), (980, 40, 120), (180, 280, 90), (900, 420, 100),
+        (40, 700, 110), (1020, 780, 95), (120, 1100, 100), (950, 1200, 115),
+        (60, 1500, 105), (1000, 1600, 90), (500, 200, 70), (700, 950, 80),
+        (300, 600, 85), (800, 1400, 95),
+    ]:
+        paste_deco(canvas, "cloud.png", (x, cy), size)
+    for x, cy, size in [(50, 500, 130), (1000, 1050, 120), (80, 1450, 110)]:
+        paste_deco(canvas, "island.png" if size > 115 else "island-small.png", (x, cy), size)
+
     title = load_font(54, "bold")
     subtitle = load_font(23, "semibold")
     roles_f = load_font(22, "semibold")
@@ -197,19 +211,6 @@ def main() -> None:
     h2 = load_font(22, "semibold")
     body = load_font(19, "regular")
     small = load_font(17, "regular")
-
-    estimate_h = 3200
-    canvas = load_sky(estimate_h)
-
-    cloud_spots = [
-        (30, 20, 130), (980, 40, 120), (180, 280, 90), (900, 420, 100),
-        (40, 700, 110), (1020, 780, 95), (120, 1100, 100), (950, 1200, 115),
-        (60, 1500, 105), (1000, 1600, 90), (500, 200, 70), (700, 950, 80),
-    ]
-    for x, cy, size in cloud_spots:
-        paste_deco(canvas, "cloud.png", (x, cy), size)
-    for x, cy, size in [(50, 500, 130), (1000, 1050, 120), (80, 1450, 110)]:
-        paste_deco(canvas, "island.png" if size > 115 else "island-small.png", (x, cy), size)
 
     # ----- Header on liquid glass so roles are readable -----
     header_top = 40
@@ -231,6 +232,10 @@ def main() -> None:
     y = text_block(canvas, y, data["roles"], roles_f, center=True, fill=INK, tracking=6)
     y = header_top + header_h + 22
 
+    # Floating clouds between sections (visible outside glass)
+    paste_deco(canvas, "cloud.png", (30, y - 10), 95)
+    paste_deco(canvas, "cloud.png", (1020, y - 5), 85)
+
     # ----- Welcome -----
     welcome_body = " ".join(data["welcome_body"].split())
     temp = Image.new("RGBA", (W, 500), (0, 0, 0, 0))
@@ -246,6 +251,9 @@ def main() -> None:
     y += 8
     y = text_block(canvas, y, welcome_body, body, fill=INK_SECONDARY, tracking=7)
     y = panel_top + content_h + 20
+
+    paste_deco(canvas, "island-small.png", (40, y - 15), 90)
+    paste_deco(canvas, "cloud.png", (980, y - 20), 100)
 
     # ----- Experience -----
     temp = Image.new("RGBA", (W, 2000), (0, 0, 0, 0))
@@ -269,6 +277,9 @@ def main() -> None:
         y = text_block(canvas, y, " ".join(job["body"].split()), body, fill=INK_SECONDARY, tracking=6)
         y += 12
     y = panel_top + content_h + 20
+
+    paste_deco(canvas, "cloud.png", (50, y - 10), 105)
+    paste_deco(canvas, "island.png", (1000, y - 25), 115)
 
     # ----- Projects -----
     col_w = (MAX_TEXT - 36) // 2
@@ -325,6 +336,9 @@ def main() -> None:
 
     y = panel_top + content_h + 20
 
+    paste_deco(canvas, "cloud.png", (70, y - 15), 100)
+    paste_deco(canvas, "cloud.png", (990, y - 10), 90)
+
     # ----- Tech icons -----
     icons_path = ASSETS / data.get("tech_icons", "tech-icons.png")
     icons = Image.open(icons_path).convert("RGBA") if icons_path.exists() else None
@@ -349,11 +363,15 @@ def main() -> None:
         y += icons.height
     y = panel_top + content_h + 28
 
-    paste_deco(canvas, "cloud.png", (70, y - 40), 110)
-    paste_deco(canvas, "island-small.png", (980, y - 50), 100)
-    paste_deco(canvas, "cloud.png", (500, y - 20), 80)
+    # Foreground clouds/islands so they stay visible
+    paste_deco(canvas, "cloud.png", (40, 30), 115)
+    paste_deco(canvas, "cloud.png", (1000, 50), 105)
+    paste_deco(canvas, "cloud.png", (70, y - 50), 120)
+    paste_deco(canvas, "island.png", (980, y - 70), 125)
+    paste_deco(canvas, "cloud.png", (480, y - 35), 90)
+    paste_deco(canvas, "island-small.png", (200, y - 40), 85)
 
-    final_h = min(estimate_h, y + 40)
+    final_h = min(estimate_h, y + 50)
     final = canvas.crop((0, 0, W, final_h))
     final.convert("RGB").save(OUT, quality=95, optimize=True)
     print(f"wrote {OUT} ({OUT.stat().st_size} bytes, {final.size[0]}x{final.size[1]})")
