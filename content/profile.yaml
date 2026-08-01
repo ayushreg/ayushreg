@@ -1,0 +1,52 @@
+# Source of truth for the profile image.
+# Edit this file, then run:  python tools/make_profile_image.py
+
+name: Ayush Regmi
+tagline: FastTrack CS @ UT Dallas · Graduating 2028
+roles: Software engineer · AI builder
+
+welcome_title: Hey, I'm Ayush. Welcome in.
+welcome_body: >
+  FastTrack CS at UT Dallas. I intern at Argo Data, teach at AI Squads,
+  and build AutoTok on the side.
+
+experience_title: Experience
+experience:
+  - title: Argo Data · Software Engineering Intern
+    body: >
+      Building a React app so engineers can create, edit, compare, and run tests
+      in one place, and moving tests from Excel to XML so Git can review them cleanly.
+  - title: OneKit · Software Engineering Intern
+    body: >
+      Owned the email marketing tool in a desktop app for small-business owners:
+      campaigns, A/B testing, and engagement tracking.
+  - title: AI Squads · TA Lead & Software Engineer
+    body: >
+      Help teach thousands of students building AI products, and ship website fixes
+      when something blocks them from submitting work.
+
+projects_title: Stuff I've built
+projects:
+  - name: AutoTok
+    stack: React · TypeScript · Supabase
+    body: >
+      Turns product clips into ready-to-post TikTok Shop ads.
+      200+ creators on the waitlist.
+    logo: autotok.png
+    url: https://tryautotok.com
+  - name: Anime Recommendation Platform
+    stack: React · FastAPI · PostgreSQL · Redis · Docker
+    body: >
+      Hybrid recommender over 12,000+ titles with search, ratings,
+      watchlists, and personalized picks.
+    logo: anime-recs.png
+    url: https://github.com/ayushreg/anime-recommendation-platform
+
+tech_title: Tech stack
+tech_line_1: Python · Java · JavaScript · TypeScript · C++ · HTML/CSS · React · Node.js · FastAPI
+tech_line_2: Electron · PostgreSQL · Redis · Docker · Supabase · Vercel · Git · VS Code
+tech_line_3: RAG · LLMs · LangChain · Scikit-learn · Pandas · NumPy · SQL · CI/CD
+
+connect_title: Let's connect
+connect_body: Always down to talk software, AI products, or cool side projects.
+connect_links: LinkedIn · Instagram · Email
